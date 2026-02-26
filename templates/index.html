@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mobile Advisor | Smart Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Mobile Advisor <span class="badge-inr">₹ INR</span></h1>
+            <p>Advanced smartphone recommendations tailored for the Indian market</p>
+        </header>
+
+        <section class="search-panel">
+            <form id="recommendationForm" class="grid-form">
+                <div class="form-group">
+                    <label for="priceRange">Max Price (₹ INR)</label>
+                    <input type="number" id="priceRange" placeholder="e.g. 50000" value="50000" required>
+                </div>
+                <div class="form-group">
+                    <label for="ram">Min RAM (GB)</label>
+                    <select id="ram">
+                        <option value="4">4GB</option>
+                        <option value="6">6GB</option>
+                        <option value="8" selected>8GB</option>
+                        <option value="12">12GB</option>
+                        <option value="16">16GB+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="display">Display Type</label>
+                    <select id="display">
+                        <option value="Any">Any Display</option>
+                        <option value="AMOLED" selected>AMOLED (Premium)</option>
+                        <option value="LCD">Standard LCD</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="refreshRate">Min Refresh Rate</label>
+                    <select id="refreshRate">
+                        <option value="60">Standard (60Hz)</option>
+                        <option value="90">Fluid (90Hz+)</option>
+                        <option value="120" selected>Pro Motion (120Hz+)</option>
+                        <option value="144">Ultra Smooth (144Hz+)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="chargingSpeed">Min Charging Speed</label>
+                    <select id="chargingSpeed">
+                        <option value="18">Standard (18W+)</option>
+                        <option value="33" selected>Fast (33W+)</option>
+                        <option value="65">Super Fast (65W+)</option>
+                        <option value="100">Flash (100W+)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="camera">Camera Priority</label>
+                    <select id="camera">
+                        <option value="12">Standard (12MP+)</option>
+                        <option value="50" selected>High Detail (50MP+)</option>
+                        <option value="108">Professional (108MP+)</option>
+                    </select>
+                </div>
+                <div class="form-group" style="flex-direction: row; align-items: center; gap: 10px; margin-top: 25px;">
+                    <input type="checkbox" id="require5G" checked style="width: 20px; height: 20px;">
+                    <label for="require5G" style="margin-bottom: 0;">Require 5G Support</label>
+                </div>
+                <div class="form-group">
+                    <label for="brand">Brand Preference</label>
+                    <select id="brand">
+                        <option value="any">Any Brand</option>
+                        <option value="Apple">Apple</option>
+                        <option value="Samsung" selected>Samsung</option>
+                        <option value="OnePlus">OnePlus</option>
+                        <option value="Google">Google</option>
+                        <option value="Xiaomi">Xiaomi</option>
+                        <option value="Vivo">Vivo</option>
+                        <option value="iQOO">iQOO</option>
+                        <option value="Realme">Realme</option>
+                    </select>
+                </div>
+                <!-- Hidden advanced inputs -->
+                <input type="hidden" id="storage" value="128">
+                <input type="hidden" id="battery" value="4500">
+
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-microchip"></i> Run AI Recommendation Engine
+                </button>
+            </form>
+        </section>
+
+        <div class="loader" id="loader"></div>
+
+        <!-- Analytics Section -->
+        <section class="analytics-section" id="analyticsSection" style="display: none; margin-bottom: 40px;">
+            <div class="analytics-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;">
+                <div class="search-panel" style="padding: 20px;">
+                    <h3 style="margin-bottom: 20px;"><i class="fas fa-chart-bar"></i> Tech Match Profile</h3>
+                    <div style="height: 300px; width: 100%;">
+                        <canvas id="matchChart"></canvas>
+                    </div>
+                </div>
+                <div class="search-panel" style="padding: 20px;">
+                    <h3 style="margin-bottom: 20px;"><i class="fas fa-chart-line"></i> Market Value Analysis</h3>
+                    <div style="height: 300px; width: 100%;">
+                        <canvas id="marketChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="results-section" id="resultsSection">
+            <div class="tabs">
+                <div class="tab active" data-category="best_matches">Best Matches</div>
+                <div class="tab" data-category="value_picks">Value Picks (₹/%)</div>
+                <div class="tab" data-category="exact_matches">Exact Matches</div>
+                <div class="tab" data-category="better_alternatives">Premium Options</div>
+                <div class="tab" data-category="budget_alternatives">Budget Friendly</div>
+            </div>
+
+            <div class="phone-grid" id="phoneGrid">
+                <!-- Recommendations will be injected here -->
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2026 AI Mobile Advisor India. Real-time INR Pricing.</p>
+        </footer>
+    </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
